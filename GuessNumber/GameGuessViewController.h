@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  GameGuessViewController.h
 //  GuessNumber
 //
 //  Created by renxuan on 15/11/17.
@@ -7,14 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface ViewController : UIViewController<UITextFieldDelegate>
+#import "Header.h"
+@interface GameGuessViewController : UIViewController<UITextFieldDelegate>
 {
     UITextField *fillNumber_one;
     UITextField *fillNumber_two;
     UITextField *fillNumber_three;
     UITextField *fillNumber_four;
     UITextField *m_text_field_phone_number;
+    
+    UIButton *begin_button;
+    
+    NSMutableArray *startArray;
+    NSMutableArray *resultArray;
+    NSArray        *fillNumber_all;
 }
 
 

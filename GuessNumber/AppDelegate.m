@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "GameGuessViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -16,7 +16,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    self.gameGuess = [[GameGuessViewController alloc]init];
+    UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:self.gameGuess];
+    self.window.rootViewController = navigation;
     return YES;
 }
 

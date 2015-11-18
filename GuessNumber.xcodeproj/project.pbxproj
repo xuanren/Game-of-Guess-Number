@@ -9,12 +9,15 @@
 /* Begin PBXBuildFile section */
 		2C2CF8811BFAFC3D00C246E8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2CF8801BFAFC3D00C246E8 /* main.m */; };
 		2C2CF8841BFAFC3D00C246E8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2CF8831BFAFC3D00C246E8 /* AppDelegate.m */; };
-		2C2CF8871BFAFC3D00C246E8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2CF8861BFAFC3D00C246E8 /* ViewController.m */; };
+		2C2CF8871BFAFC3D00C246E8 /* GameGuessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2CF8861BFAFC3D00C246E8 /* GameGuessViewController.m */; };
 		2C2CF88A1BFAFC3D00C246E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C2CF8881BFAFC3D00C246E8 /* Main.storyboard */; };
 		2C2CF88C1BFAFC3D00C246E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C2CF88B1BFAFC3D00C246E8 /* Assets.xcassets */; };
 		2C2CF88F1BFAFC3D00C246E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C2CF88D1BFAFC3D00C246E8 /* LaunchScreen.storyboard */; };
 		2C2CF89A1BFAFC3E00C246E8 /* GuessNumberTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2CF8991BFAFC3E00C246E8 /* GuessNumberTests.m */; };
 		2C2CF8A51BFAFC3E00C246E8 /* GuessNumberUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2CF8A41BFAFC3E00C246E8 /* GuessNumberUITests.m */; };
+		2C2CF8BA1BFB1C5500C246E8 /* CompareRandomNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2CF8B91BFB1C5500C246E8 /* CompareRandomNumber.m */; };
+		2C2CF8C11BFB1CFD00C246E8 /* ControlTheNumberOf.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2CF8C01BFB1CFD00C246E8 /* ControlTheNumberOf.m */; };
+		2C2CF8C41BFB1D2500C246E8 /* GenerateRandomNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2CF8C31BFB1D2500C246E8 /* GenerateRandomNumber.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,8 +42,8 @@
 		2C2CF8801BFAFC3D00C246E8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2C2CF8821BFAFC3D00C246E8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2C2CF8831BFAFC3D00C246E8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		2C2CF8851BFAFC3D00C246E8 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		2C2CF8861BFAFC3D00C246E8 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		2C2CF8851BFAFC3D00C246E8 /* GameGuessViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameGuessViewController.h; sourceTree = "<group>"; };
+		2C2CF8861BFAFC3D00C246E8 /* GameGuessViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameGuessViewController.m; sourceTree = "<group>"; };
 		2C2CF8891BFAFC3D00C246E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2C2CF88B1BFAFC3D00C246E8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C2CF88E1BFAFC3D00C246E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +54,13 @@
 		2C2CF8A01BFAFC3E00C246E8 /* GuessNumberUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GuessNumberUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C2CF8A41BFAFC3E00C246E8 /* GuessNumberUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GuessNumberUITests.m; sourceTree = "<group>"; };
 		2C2CF8A61BFAFC3E00C246E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2C2CF8B21BFB0E1F00C246E8 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
+		2C2CF8B81BFB1C5500C246E8 /* CompareRandomNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompareRandomNumber.h; sourceTree = "<group>"; };
+		2C2CF8B91BFB1C5500C246E8 /* CompareRandomNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompareRandomNumber.m; sourceTree = "<group>"; };
+		2C2CF8BF1BFB1CFD00C246E8 /* ControlTheNumberOf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlTheNumberOf.h; sourceTree = "<group>"; };
+		2C2CF8C01BFB1CFD00C246E8 /* ControlTheNumberOf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlTheNumberOf.m; sourceTree = "<group>"; };
+		2C2CF8C21BFB1D2500C246E8 /* GenerateRandomNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenerateRandomNumber.h; sourceTree = "<group>"; };
+		2C2CF8C31BFB1D2500C246E8 /* GenerateRandomNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenerateRandomNumber.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +91,10 @@
 		2C2CF8731BFAFC3D00C246E8 = {
 			isa = PBXGroup;
 			children = (
+				2C2CF8B21BFB0E1F00C246E8 /* Header.h */,
+				2C2CF8BB1BFB1C7500C246E8 /* ControlNumber */,
+				2C2CF8B71BFB1C0A00C246E8 /* CompareNumber */,
+				2C2CF8B31BFB1B8700C246E8 /* GenerateNumber */,
 				2C2CF87E1BFAFC3D00C246E8 /* GuessNumber */,
 				2C2CF8981BFAFC3E00C246E8 /* GuessNumberTests */,
 				2C2CF8A31BFAFC3E00C246E8 /* GuessNumberUITests */,
@@ -103,8 +117,8 @@
 			children = (
 				2C2CF8821BFAFC3D00C246E8 /* AppDelegate.h */,
 				2C2CF8831BFAFC3D00C246E8 /* AppDelegate.m */,
-				2C2CF8851BFAFC3D00C246E8 /* ViewController.h */,
-				2C2CF8861BFAFC3D00C246E8 /* ViewController.m */,
+				2C2CF8851BFAFC3D00C246E8 /* GameGuessViewController.h */,
+				2C2CF8861BFAFC3D00C246E8 /* GameGuessViewController.m */,
 				2C2CF8881BFAFC3D00C246E8 /* Main.storyboard */,
 				2C2CF88B1BFAFC3D00C246E8 /* Assets.xcassets */,
 				2C2CF88D1BFAFC3D00C246E8 /* LaunchScreen.storyboard */,
@@ -138,6 +152,33 @@
 				2C2CF8A61BFAFC3E00C246E8 /* Info.plist */,
 			);
 			path = GuessNumberUITests;
+			sourceTree = "<group>";
+		};
+		2C2CF8B31BFB1B8700C246E8 /* GenerateNumber */ = {
+			isa = PBXGroup;
+			children = (
+				2C2CF8C21BFB1D2500C246E8 /* GenerateRandomNumber.h */,
+				2C2CF8C31BFB1D2500C246E8 /* GenerateRandomNumber.m */,
+			);
+			name = GenerateNumber;
+			sourceTree = "<group>";
+		};
+		2C2CF8B71BFB1C0A00C246E8 /* CompareNumber */ = {
+			isa = PBXGroup;
+			children = (
+				2C2CF8B81BFB1C5500C246E8 /* CompareRandomNumber.h */,
+				2C2CF8B91BFB1C5500C246E8 /* CompareRandomNumber.m */,
+			);
+			name = CompareNumber;
+			sourceTree = "<group>";
+		};
+		2C2CF8BB1BFB1C7500C246E8 /* ControlNumber */ = {
+			isa = PBXGroup;
+			children = (
+				2C2CF8BF1BFB1CFD00C246E8 /* ControlTheNumberOf.h */,
+				2C2CF8C01BFB1CFD00C246E8 /* ControlTheNumberOf.m */,
+			);
+			name = ControlNumber;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,7 +311,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C2CF8871BFAFC3D00C246E8 /* ViewController.m in Sources */,
+				2C2CF8C41BFB1D2500C246E8 /* GenerateRandomNumber.m in Sources */,
+				2C2CF8871BFAFC3D00C246E8 /* GameGuessViewController.m in Sources */,
+				2C2CF8C11BFB1CFD00C246E8 /* ControlTheNumberOf.m in Sources */,
+				2C2CF8BA1BFB1C5500C246E8 /* CompareRandomNumber.m in Sources */,
 				2C2CF8841BFAFC3D00C246E8 /* AppDelegate.m in Sources */,
 				2C2CF8811BFAFC3D00C246E8 /* main.m in Sources */,
 			);
