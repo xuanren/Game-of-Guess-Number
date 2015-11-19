@@ -17,7 +17,8 @@
     UITextField *m_text_field_phone_number;
     
     UIButton *begin_button;
-    
+    UIButton *enter_number;
+    UILabel  *error_digital;
     NSMutableArray *startArray;
     NSMutableArray *resultArray;
     NSArray        *fillNumber_all;

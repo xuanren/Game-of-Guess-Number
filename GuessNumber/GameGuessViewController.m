@@ -9,6 +9,10 @@
 #import "GameGuessViewController.h"
 
 @interface GameGuessViewController ()
+{
+//    int count_a;
+//    int count_b;
+}
 
 @end
 
@@ -41,6 +45,27 @@
     [self.view addSubview:start_button];
     return start_button;
 }
+- (UILabel *)create_label_with_frame : (CGRect)frame
+{
+    UILabel *label = [[UILabel alloc]initWithFrame:frame];
+    label.textColor = [UIColor redColor];
+    label.font = [UIFont fontWithName:@"Arial" size:12.0];
+    label.textAlignment = UITextAlignmentCenter;
+    label.textColor = [UIColor colorWithRed:208.0/255.0 green:2.0/255.0 blue:27.0/255.0 alpha:1.0];
+    label.text = @"";
+    [self.view addSubview:label];
+    return label;
+}
+- (void)create_label_with_title :(NSString *)title :(CGRect)frame :(double)font_size :(UIColor *)color
+{
+    UILabel *name_notifiction_label = [[UILabel alloc]initWithFrame:frame];
+    name_notifiction_label.textAlignment = NSTextAlignmentCenter;
+    name_notifiction_label.font = [UIFont fontWithName:@"Arial" size:font_size];
+    
+    name_notifiction_label.text = title;
+    name_notifiction_label.textColor = color;
+    [self.view addSubview:name_notifiction_label];
+}
 
 - (void)dismiss_key_board
 {
@@ -48,16 +73,16 @@
 }
 - (void)add_fill_number
 {
-    fillNumber_one = [self create_text_field_with_frame:CGRectMake((self.view.frame.size.width - 310)/2 + 50, 222, 40, 40)];
-    fillNumber_two = [self create_text_field_with_frame:CGRectMake((self.view.frame.size.width - 310)/2 + 50 * 2, 222, 40, 40)];
-    fillNumber_three = [self create_text_field_with_frame:CGRectMake((self.view.frame.size.width - 310)/2 + 50 * 3, 222, 40, 40)];
-    fillNumber_four = [self create_text_field_with_frame:CGRectMake((self.view.frame.size.width - 310)/2 +
+    fillNumber_one = [self create_text_field_with_frame:CGRectMake((self.view.frame.size.width - 400)/2 + 50, 222, 40, 40)];
+    fillNumber_two = [self create_text_field_with_frame:CGRectMake((self.view.frame.size.width - 400)/2 + 50 * 2, 222, 40, 40)];
+    fillNumber_three = [self create_text_field_with_frame:CGRectMake((self.view.frame.size.width - 400)/2 + 50 * 3, 222, 40, 40)];
+    fillNumber_four = [self create_text_field_with_frame:CGRectMake((self.view.frame.size.width - 400)/2 +
                                                                     50 * 4, 222, 40, 40)];
-    fillNumber_all = [[NSArray alloc]initWithObjects:fillNumber_one, fillNumber_two, fillNumber_three, fillNumber_four, nil];
 }
 - (void)add_start_button
 {
     begin_button = [self create_button_with_frame :@"开始游戏" :CGRectMake((self.view.frame.size.width - 120)/2, 310, 100, 50) :@selector(generating_the_digital:)];
+    enter_number = [self create_button_with_frame:@"确定" :CGRectMake(self.view.frame.size.width - 100, 222, 60, 40) :@selector(enter_different_number:)];
 }
 
 - (void)viewDidLoad {
@@ -65,6 +90,8 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self add_fill_number];
     [self add_start_button];
+
+    error_digital = [self create_label_with_frame:CGRectMake((self.view.frame.size.width - 170)/2, 280, 150, 30)];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dismiss_key_board)];
     [self.view addGestureRecognizer:tap];
     }
@@ -85,8 +112,41 @@
         resultArray[i]=startArray[t];
         startArray[t]=[startArray lastObject]; //为更好的乱序，故交换下位置
         [startArray removeLastObject];
+        NSLog(@"result");
     }
     return resultArray;
+}
+-(void)enter_different_number:(id)sender
+{
+    fillNumber_all = [[NSArray alloc]initWithObjects:fillNumber_one.text, fillNumber_two.text, fillNumber_three.text, fillNumber_four.text, nil];
+
+        for (int j=1; j<4; j++) {
+            for (int k=0; k<j; k++) {
+                if (fillNumber_all[k] != fillNumber_all[j])
+                    [self compare_with_number];
+                else
+                    error_digital.text = @"请重新输入不同的数字";
+                    }
+        }
+}
+-(void)compare_with_number
+{
+    int count_a = 0;
+    int count_b = 0;
+    for (int a = 0; a < fillNumber_all.count; a ++) {
+        for (int b = 0; b < resultArray.count; b ++) {
+            if (fillNumber_all[a] == resultArray[b]) {
+                if (a == b){
+                    count_a = count_a + 1;
+                }
+                else{
+                    count_b = count_b + 1;
+                }
+            }
+        }
+        NSString *count_title = [NSString stringWithFormat:@"%dA%dB",count_a,count_b];
+        [self create_label_with_title :count_title :CGRectMake((self.view.frame.size.width - 120)/2, 150, 100, 50):24.0 :[UIColor colorWithRed:208.0/255.0 green:2.0/255.0 blue:27.0/255.0 alpha:1.0]];
+    }
 }
 //限制只能输入一个字符
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
@@ -100,17 +160,11 @@
     if ([fillNumber_one isEqual:textField]||[fillNumber_two isEqual:textField]||[fillNumber_three isEqual:textField]||[fillNumber_four isEqual:textField])
         //判断是否时我们想要限定的那个输入框
     {
-//        for (int j=0; j<fillNumber_all.count; j++) {
-//            if ([fillNumber_all isEqual:textField]) {
-//                <#statements#>
-//            }
-//        }
         if ([toBeString length] > 1) {
-            //如果输入框内容大于1则弹出警告
             textField.text = [toBeString substringToIndex:1];
             return NO;
         }
     }
-    return YES;
+            return YES;
 }
 @end
