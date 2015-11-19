@@ -9,10 +9,6 @@
 #import "GameGuessViewController.h"
 
 @interface GameGuessViewController ()
-{
-//    int count_a;
-//    int count_b;
-}
 
 @end
 
@@ -114,6 +110,7 @@
         [startArray removeLastObject];
         NSLog(@"result");
     }
+    [fillNumber_one.text isEqualToString:@""]&&[fillNumber_two.text isEqualToString:@""]&&[fillNumber_three.text isEqualToString:@""]&&[fillNumber_four.text isEqualToString:@""];
     return resultArray;
 }
 -(void)enter_different_number:(id)sender
@@ -133,20 +130,18 @@
 {
     int count_a = 0;
     int count_b = 0;
-    for (int a = 0; a < fillNumber_all.count; a ++) {
-        for (int b = 0; b < resultArray.count; b ++) {
-            if (fillNumber_all[a] == resultArray[b]) {
-                if (a == b){
+    for (int a = 0; a < resultArray.count; a ++) {
+        for (int b = 0; b < fillNumber_all.count; b ++) {
+            if ([fillNumber_all[b] isEqualToString: resultArray[a]]) {
+                if (a == b)
                     count_a = count_a + 1;
-                }
-                else{
+                else
                     count_b = count_b + 1;
-                }
             }
         }
-        NSString *count_title = [NSString stringWithFormat:@"%dA%dB",count_a,count_b];
-        [self create_label_with_title :count_title :CGRectMake((self.view.frame.size.width - 120)/2, 150, 100, 50):24.0 :[UIColor colorWithRed:208.0/255.0 green:2.0/255.0 blue:27.0/255.0 alpha:1.0]];
     }
+    NSString *count_title = [NSString stringWithFormat:@"%d A %d B",count_a,count_b];
+    [self create_label_with_title :count_title :CGRectMake((self.view.frame.size.width - 120)/2, 150, 100, 50):24.0 :[UIColor colorWithRed:208.0/255.0 green:2.0/255.0 blue:27.0/255.0 alpha:1.0]];
 }
 //限制只能输入一个字符
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
