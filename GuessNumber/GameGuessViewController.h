@@ -19,6 +19,10 @@
     UIButton *begin_button;
     UIButton *enter_number;
     UILabel  *error_digital;
+    UILabel  *m_error_info_label;
+    UILabel  *m_congra_info_label;
+    UILabel  *m_sorry_info_label;
+    UILabel  *m_fail_info_label;
     NSMutableArray *startArray;
     NSMutableArray *resultArray;
     NSArray        *fillNumber_all;

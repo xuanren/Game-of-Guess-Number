@@ -9,7 +9,11 @@
 #import "GameGuessViewController.h"
 
 @interface GameGuessViewController ()
-
+{
+    int count;
+    int count_a;
+    int count_b;
+}
 @end
 
 @implementation GameGuessViewController
@@ -52,15 +56,16 @@
     [self.view addSubview:label];
     return label;
 }
-- (void)create_label_with_title :(NSString *)title :(CGRect)frame :(double)font_size :(UIColor *)color
+- (UILabel *)create_label_with_title :(NSString *)title :(CGRect)frame :(double)font_size :(UIColor *)color
 {
     UILabel *name_notifiction_label = [[UILabel alloc]initWithFrame:frame];
     name_notifiction_label.textAlignment = NSTextAlignmentCenter;
     name_notifiction_label.font = [UIFont fontWithName:@"Arial" size:font_size];
-    
     name_notifiction_label.text = title;
+    name_notifiction_label.backgroundColor = [UIColor whiteColor];
     name_notifiction_label.textColor = color;
     [self.view addSubview:name_notifiction_label];
+    return name_notifiction_label;
 }
 
 - (void)dismiss_key_board
@@ -77,8 +82,8 @@
 }
 - (void)add_start_button
 {
-    begin_button = [self create_button_with_frame :@"开始游戏" :CGRectMake((self.view.frame.size.width - 120)/2, 310, 100, 50) :@selector(generating_the_digital:)];
-    enter_number = [self create_button_with_frame:@"确定" :CGRectMake(self.view.frame.size.width - 100, 222, 60, 40) :@selector(enter_different_number:)];
+    begin_button = [self create_button_with_frame :@"生成数字" :CGRectMake((self.view.frame.size.width - 120)/2, 310, 100, 50) :@selector(generating_the_digital:)];
+    enter_number = [self create_button_with_frame:@"确定" :CGRectMake(self.view.frame.size.width - 100, 222, 60, 40) :@selector(clear_number:)];
 }
 
 - (void)viewDidLoad {
@@ -86,7 +91,6 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self add_fill_number];
     [self add_start_button];
-
     error_digital = [self create_label_with_frame:CGRectMake((self.view.frame.size.width - 170)/2, 280, 150, 30)];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dismiss_key_board)];
     [self.view addGestureRecognizer:tap];
@@ -95,6 +99,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 -(NSArray *)generating_the_digital:(id)sender
 {
     //随机数从这里边产生
@@ -110,38 +115,64 @@
         [startArray removeLastObject];
         NSLog(@"result");
     }
-    [fillNumber_one.text isEqualToString:@""]&&[fillNumber_two.text isEqualToString:@""]&&[fillNumber_three.text isEqualToString:@""]&&[fillNumber_four.text isEqualToString:@""];
     return resultArray;
 }
+- (void)clear_number:(id)sender
+{
+    [self enter_different_number:(id)sender];
+     (fillNumber_one.text = @"")&&(fillNumber_two.text = @"")&&(fillNumber_three.text = @"")&&(fillNumber_four.text = @"");
+    count ++;
+    if (count == 6) {
+        if (count_a == 4)
+            m_congra_info_label = [self create_label_with_title :@"Congratulations！":INFO_CGRECT:INFO_FONT :INFO_COLOR];
+        else
+            m_congra_info_label = [self create_label_with_title :@"本次闯关失败！%>_<%":INFO_CGRECT:INFO_FONT :INFO_COLOR];
+    }
+    
+}
+
 -(void)enter_different_number:(id)sender
 {
     fillNumber_all = [[NSArray alloc]initWithObjects:fillNumber_one.text, fillNumber_two.text, fillNumber_three.text, fillNumber_four.text, nil];
-
+    if (![fillNumber_one.text isEqualToString:@""] && ![fillNumber_two.text isEqualToString:@""] && ![fillNumber_three.text isEqualToString:@""] && ![fillNumber_four.text isEqualToString:@""]) {
         for (int j=1; j<4; j++) {
             for (int k=0; k<j; k++) {
-                if (fillNumber_all[k] != fillNumber_all[j])
-                    [self compare_with_number];
-                else
+                if ([fillNumber_all[k] isEqualToString: fillNumber_all[j]]){
                     error_digital.text = @"请重新输入不同的数字";
-                    }
+                    m_error_info_label.text = @"";
+                }
+                else{
+                    [self compare_with_number];
+                }
+            }
         }
-}
+
+    }
+        }
+
 -(void)compare_with_number
 {
-    int count_a = 0;
-    int count_b = 0;
+    count_a = 0;
+    count_b = 0;
     for (int a = 0; a < resultArray.count; a ++) {
         for (int b = 0; b < fillNumber_all.count; b ++) {
             if ([fillNumber_all[b] isEqualToString: resultArray[a]]) {
-                if (a == b)
+                if (a == b){
                     count_a = count_a + 1;
-                else
+                    if (count_a == 4) {
+                        m_congra_info_label = [self create_label_with_title :@"Congratulations！":INFO_CGRECT:INFO_FONT :INFO_COLOR];
+                        m_error_info_label.text = @"";
+                    }
+                }
+                else{
                     count_b = count_b + 1;
+                    m_sorry_info_label = [self create_label_with_title :@"很遗憾！再试一次！" :INFO_CGRECT:INFO_FONT :INFO_COLOR];
+                }
             }
         }
     }
     NSString *count_title = [NSString stringWithFormat:@"%d A %d B",count_a,count_b];
-    [self create_label_with_title :count_title :CGRectMake((self.view.frame.size.width - 120)/2, 150, 100, 50):24.0 :[UIColor colorWithRed:208.0/255.0 green:2.0/255.0 blue:27.0/255.0 alpha:1.0]];
+    m_error_info_label = [self create_label_with_title :count_title :CGRectMake((self.view.frame.size.width - 120)/2, 150, 100, 50):INFO_FONT :INFO_COLOR];
 }
 //限制只能输入一个字符
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
