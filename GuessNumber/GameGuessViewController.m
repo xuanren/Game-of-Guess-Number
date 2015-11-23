@@ -78,11 +78,11 @@
     fillNumber_two = [self create_text_field_with_frame:CGRectMake((self.view.frame.size.width - 400)/2 + 50 * 2, 222, 40, 40)];
     fillNumber_three = [self create_text_field_with_frame:CGRectMake((self.view.frame.size.width - 400)/2 + 50 * 3, 222, 40, 40)];
     fillNumber_four = [self create_text_field_with_frame:CGRectMake((self.view.frame.size.width - 400)/2 +
-                                                                    50 * 4, 222, 40, 40)];
+                                                                50 * 4, 222, 40, 40)];
 }
 - (void)add_start_button
 {
-    begin_button = [self create_button_with_frame :@"生成数字" :CGRectMake((self.view.frame.size.width - 120)/2, 310, 100, 50) :@selector(generating_the_digital:)];
+    begin_button = [self create_button_with_frame :@"开始游戏" :CGRectMake((self.view.frame.size.width - 120)/2, 310, 100, 50) :@selector(generating_the_digital:)];
     enter_number = [self create_button_with_frame:@"确定" :CGRectMake(self.view.frame.size.width - 100, 222, 60, 40) :@selector(clear_number:)];
 }
 
@@ -97,11 +97,11 @@
     }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(NSArray *)generating_the_digital:(id)sender
 {
+    (m_congra_info_label.text = @"")&&(m_sorry_info_label.text = @"")&&(m_error_info_label.text = @"")&&(fillNumber_one.text = @"")&&(fillNumber_two.text = @"")&&(fillNumber_three.text = @"")&&(fillNumber_four.text = @"")&&(count = 0);
     //随机数从这里边产生
     startArray=[[NSMutableArray alloc] initWithObjects:@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9", nil];
     //随机数产生结果
@@ -117,80 +117,87 @@
     }
     return resultArray;
 }
+
 - (void)clear_number:(id)sender
 {
-    [self enter_different_number:(id)sender];
+    [self compare_with_number];
      (fillNumber_one.text = @"")&&(fillNumber_two.text = @"")&&(fillNumber_three.text = @"")&&(fillNumber_four.text = @"");
     count ++;
     if (count == 6) {
         if (count_a == 4)
-            m_congra_info_label = [self create_label_with_title :@"Congratulations！":INFO_CGRECT:INFO_FONT :INFO_COLOR];
+            m_congra_info_label = [self create_label_with_title :@"SUCCESS！":INFO_CGRECT:INFO_FONT :INFO_COLOR];
         else
             m_congra_info_label = [self create_label_with_title :@"本次闯关失败！%>_<%":INFO_CGRECT:INFO_FONT :INFO_COLOR];
     }
-    
 }
-
--(void)enter_different_number:(id)sender
+- (void)m_sorry_info_label_frame
 {
-    fillNumber_all = [[NSArray alloc]initWithObjects:fillNumber_one.text, fillNumber_two.text, fillNumber_three.text, fillNumber_four.text, nil];
-    if (![fillNumber_one.text isEqualToString:@""] && ![fillNumber_two.text isEqualToString:@""] && ![fillNumber_three.text isEqualToString:@""] && ![fillNumber_four.text isEqualToString:@""]) {
-        for (int j=1; j<4; j++) {
-            for (int k=0; k<j; k++) {
-                if ([fillNumber_all[k] isEqualToString: fillNumber_all[j]]){
-                    error_digital.text = @"请重新输入不同的数字";
-                    m_error_info_label.text = @"";
-                }
-                else{
-                    [self compare_with_number];
-                }
-            }
-        }
-
-    }
-        }
-
+    m_sorry_info_label = m_sorry_info_label = [self create_label_with_title :@"很遗憾！再试一次！" :INFO_CGRECT:INFO_FONT :INFO_COLOR];
+}
+- (void)m_congra_info_label_frame
+{
+    count_a = count_a + 1;
+    if (count_a == 4) {
+        m_congra_info_label = [self create_label_with_title :@"SUCCESS！":INFO_CGRECT:INFO_FONT :INFO_COLOR];
+        m_error_info_label.text = @"";
+    }else if (count_a < 4)
+       [self m_sorry_info_label_frame];
+}
 -(void)compare_with_number
 {
     count_a = 0;
     count_b = 0;
+    if (count_a == count_b) {
+        [self m_sorry_info_label_frame];
+    }
     for (int a = 0; a < resultArray.count; a ++) {
         for (int b = 0; b < fillNumber_all.count; b ++) {
             if ([fillNumber_all[b] isEqualToString: resultArray[a]]) {
-                if (a == b){
-                    count_a = count_a + 1;
-                    if (count_a == 4) {
-                        m_congra_info_label = [self create_label_with_title :@"Congratulations！":INFO_CGRECT:INFO_FONT :INFO_COLOR];
-                        m_error_info_label.text = @"";
-                    }
-                }
-                else{
+                if (a == b)
+                    [self m_congra_info_label_frame];
+                else
                     count_b = count_b + 1;
-                    m_sorry_info_label = [self create_label_with_title :@"很遗憾！再试一次！" :INFO_CGRECT:INFO_FONT :INFO_COLOR];
-                }
+                    [self m_sorry_info_label_frame];
             }
         }
     }
     NSString *count_title = [NSString stringWithFormat:@"%d A %d B",count_a,count_b];
     m_error_info_label = [self create_label_with_title :count_title :CGRectMake((self.view.frame.size.width - 120)/2, 150, 100, 50):INFO_FONT :INFO_COLOR];
 }
+
 //限制只能输入一个字符
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    //string就是此时输入的那个字符 textField就是此时正在输入的那个输入框 返回YES就是可以改变输入框的值 NO相反
-    if ([string isEqualToString:@"\n"])  //按会车可以改变
-    {
-        return YES;
-    }
-    NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string]; //得到输入框的内容
-    
-    if ([fillNumber_one isEqual:textField]||[fillNumber_two isEqual:textField]||[fillNumber_three isEqual:textField]||[fillNumber_four isEqual:textField])
-        //判断是否时我们想要限定的那个输入框
-    {
-        if ([toBeString length] > 1) {
-            textField.text = [toBeString substringToIndex:1];
-            return NO;
+    fillNumber_all = [[NSArray alloc]initWithObjects:fillNumber_one.text, fillNumber_two.text, fillNumber_three.text, fillNumber_four.text, nil];
+    NSMutableArray *scopeArray = [[NSMutableArray alloc]initWithObjects:@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9", nil];
+    NSMutableArray *trashArray = [[NSMutableArray alloc]initWithCapacity:0];
+    NSString *read;
+    for (int c = 0; c < fillNumber_all.count; c ++) {
+        for (int d = 0; d < scopeArray.count; d ++) {
+            if ([[fillNumber_all objectAtIndex:c] isEqualToString:[scopeArray objectAtIndex:d]]) {
+                [trashArray addObject:[scopeArray objectAtIndex:d]];
+            }
         }
+        [scopeArray removeObjectsInArray:trashArray];
+        NSString *number = [scopeArray componentsJoinedByString:@""];
+        NSCharacterSet *character = [[NSCharacterSet characterSetWithCharactersInString:number]invertedSet];
+        read = [[string componentsSeparatedByCharactersInSet:character]componentsJoinedByString:@""];
     }
-            return YES;
+    BOOL res=[string isEqualToString:read];
+    return res;
+    //string就是此时输入的那个字符 textField就是此时正在输入的那个输入框 返回YES就是可以改变输入框的值 NO相反
+//    if ([string isEqualToString:@"\n"])  //按会车可以改变
+//    {
+//        return YES;
+//    }
+//    NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string]; //得到输入框的内容
+//    
+//    if ([fillNumber_one isEqual:textField]||[fillNumber_two isEqual:textField]||[fillNumber_three isEqual:textField]||[fillNumber_four isEqual:textField])
+//        //判断是否时我们想要限定的那个输入框
+//    {
+//        if ([toBeString length] > 1)
+//            textField.text = [toBeString substringToIndex:1];
+//            return NO;
+//    }
+//    return YES;
 }
 @end
