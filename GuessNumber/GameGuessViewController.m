@@ -164,14 +164,25 @@
     NSString *count_title = [NSString stringWithFormat:@"%d A %d B",count_a,count_b];
     m_error_info_label = [self create_label_with_title :count_title :CGRectMake((self.view.frame.size.width - 120)/2, 150, 100, 50):INFO_FONT :INFO_COLOR];
 }
-
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    [textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+}
+- (void)textFieldDidChange:(UITextField *)textField
+{
+    if ([fillNumber_one isEqual:textField]||[fillNumber_two isEqual:textField]||[fillNumber_three isEqual:textField]||[fillNumber_four isEqual:textField]) {
+        if (textField.text.length > 1) {
+            textField.text = [textField.text substringToIndex:1];
+        }
+    }
+}
 //限制只能输入一个字符
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     fillNumber_all = [[NSArray alloc]initWithObjects:fillNumber_one.text, fillNumber_two.text, fillNumber_three.text, fillNumber_four.text, nil];
     NSMutableArray *scopeArray = [[NSMutableArray alloc]initWithObjects:@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9", nil];
     NSMutableArray *trashArray = [[NSMutableArray alloc]initWithCapacity:0];
     NSString *read;
-    for (int c = 0; c < fillNumber_all.count; c ++) {
+        for (int c = 0; c < fillNumber_all.count; c ++) {
         for (int d = 0; d < scopeArray.count; d ++) {
             if ([[fillNumber_all objectAtIndex:c] isEqualToString:[scopeArray objectAtIndex:d]]) {
                 [trashArray addObject:[scopeArray objectAtIndex:d]];
@@ -184,20 +195,5 @@
     }
     BOOL res=[string isEqualToString:read];
     return res;
-    //string就是此时输入的那个字符 textField就是此时正在输入的那个输入框 返回YES就是可以改变输入框的值 NO相反
-//    if ([string isEqualToString:@"\n"])  //按会车可以改变
-//    {
-//        return YES;
-//    }
-//    NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string]; //得到输入框的内容
-//    
-//    if ([fillNumber_one isEqual:textField]||[fillNumber_two isEqual:textField]||[fillNumber_three isEqual:textField]||[fillNumber_four isEqual:textField])
-//        //判断是否时我们想要限定的那个输入框
-//    {
-//        if ([toBeString length] > 1)
-//            textField.text = [toBeString substringToIndex:1];
-//            return NO;
-//    }
-//    return YES;
 }
 @end
